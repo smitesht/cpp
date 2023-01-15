@@ -12,6 +12,8 @@ for example, we have a Tesla car and we need to purchase cold tire, we cannot bu
 
 Abstract factory pattern helps to solve this issue.
 
+![alt text](abstract_factory.jpg "abstract_factory.jpg")
+
 ## Implementation
 
 ```
