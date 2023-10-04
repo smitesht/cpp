@@ -10,3 +10,57 @@ The goal is to distribute the key uniformly across a range of hash codes, minimi
 
 **In C++ STL, std:: hash is a template class that provides a generic interface for creating hash functions for various data types.**
 It is commonly used for hashing keys in associative containers such as unordered_set and unordered_map.
+
+```
+#include <iostream>
+#include <functional>
+#include <string>
+#include <unordered_map>
+
+using namespace std;
+
+
+struct Employee
+{
+    int empId;
+    string name;
+    int age;
+
+    bool operator ==(const Employee& e) const
+    {
+        return empId == e.empId && name == e.name && age == e.age;
+    }
+};
+
+struct EmployeeHash
+{
+    size_t operator()(const Employee& e) const
+    {
+        return std::hash<int>{}(e.empId) ^ std::hash<string>{}(e.name) ^ std::hash<int>{}(e.age);
+    }    
+};
+
+
+int main()
+{
+    // Create simple integer hash
+    std::hash<int> intHash;
+    int key = 43;
+    cout << intHash(43) << endl;
+    
+
+    //Create custom hash
+    std::unordered_map<Employee, int, EmployeeHash> uoEmployeeList;
+    Employee jhon{1,"Jhon",23};
+    Employee robert{ 2,"Robert",32 };
+    Employee kevin{ 3,"Kevin",25 };
+
+    uoEmployeeList[jhon] = 1;
+    uoEmployeeList[robert] = 1;
+    uoEmployeeList[kevin] = 1;
+
+
+
+}
+
+```
